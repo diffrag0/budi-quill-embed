@@ -14,6 +14,8 @@
   export let htmlFieldState;
   export let htmlFieldSchema;
 
+  let iframe
+
   const { styleable } = getContext("sdk")
   const component = getContext("component")
   const formContext = getContext('form')
@@ -38,10 +40,22 @@
 
   const handleMessage = e => {
     try {
-      const { delta, html } = JSON.parse(e.data)
-      if (delta && html) {
-        deltaFieldApi.setValue(JSON.stringify(delta))
-        htmlFieldApi.setValue(html)
+      const { type, value } = JSON.parse(e.data)
+      switch (type) {
+        case 'state': {
+          const { delta, html } = value
+          if (delta && html) {
+            deltaFieldApi.setValue(JSON.stringify(delta))
+            htmlFieldApi.setValue(html)
+          }
+        }
+        break;
+        case 'ready': {
+          if (deltaFieldState.value) {
+            iframe.contentWindow.postMessage({ type: 'state', value: { delta: {} } }, '*')
+          }
+        }
+        break;
       }
     } catch(e) {
       console.warn(e)
@@ -61,6 +75,6 @@
 <div use:styleable={$component.styles} class="spectrum-Form-Item">
   <label class="spectrum-FieldLabel spectrum-Form-itemLabel spectrum-FieldLabel--left spectrum-FieldLabel--sizeM">{label}</label>
   <div class="spectrum-Form-itemField">
-    <iframe src={url} height="600" style="width: 100%; height: 400px;" title="quill" frameborder="0" />
+    <iframe bind:this={iframe} src={url} height="600" style="width: 100%; height: 400px;" title="quill" frameborder="0" />
   </div>
 </div>
