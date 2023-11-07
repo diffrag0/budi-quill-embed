@@ -52,7 +52,7 @@
         break;
         case 'ready': {
           if (deltaFieldState.value) {
-            iframe.contentWindow.postMessage({ type: 'state', value: { delta: {} } }, '*')
+            iframe.contentWindow.postMessage({ type: 'state', value: { delta: JSON.parse(deltaFieldState.value) } }, '*')
           }
         }
         break;
