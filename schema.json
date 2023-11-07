@@ -1,0 +1,35 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "Quill",
+    "friendlyName": "Quill",
+    "description": "An amazing Budibase component!",
+    "icon": "News",
+    "settings": [
+      {
+        "type": "field/string",
+        "label": "Delta",
+        "key": "delta",
+        "required": true
+      },
+      {
+        "type": "field/string",
+        "label": "HTML",
+        "key": "html",
+        "required": true
+      },
+      {
+        "type": "text",
+        "key": "url",
+        "label": "URL",
+        "required": true
+      },
+      {
+        "type": "text",
+        "key": "label",
+        "label": "Label"
+      }
+    ]
+  }
+}
