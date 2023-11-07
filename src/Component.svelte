@@ -40,7 +40,7 @@
 
   const handleMessage = e => {
     try {
-      const { type, value } = JSON.parse(e.data)
+      const { type, value } = e.data
       switch (type) {
         case 'state': {
           const { delta, html } = value
